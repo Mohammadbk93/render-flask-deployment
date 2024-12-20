@@ -1,29 +1,32 @@
-from dotenv import load_dotenv
 from flask import Flask, render_template, request
+from dotenv import load_dotenv
+import os
 import smtplib
 
-load_dotenv(dotenv_path=".venv/.env")
+# Load environment variables from .env
+load_dotenv()
+
+# Read sensitive information from environment variables
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+SMTP_SERVER = os.getenv("SMTP_SERVER")
+SMTP_PORT = int(os.getenv("SMTP_PORT"))
 
 app = Flask(__name__)
-
-# Replace these values with your own email configuration
-EMAIL_ADDRESS = "mohammadbagheri07@gmail.com"
-EMAIL_PASSWORD = "zhrjbvoboyjwrrvi"
-SMTP_SERVER = "smtp.gmail.com"
-SMTP_PORT = 587
 
 @app.route("/", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
+        # Get form data
         name = request.form.get("name")
         age = request.form.get("age")
         message = request.form.get("message")
 
-        # Construct the email message
+        # Construct email
         email_subject = "New Contact Form Submission"
-        email_body = f"Name and Surname: {name}\nAge: {age}\nMessage:\n{message}"
+        email_body = f"Name: {name}\nAge: {age}\nMessage:\n{message}"
 
-        # Send the email
+        # Send email
         try:
             with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as connection:
                 connection.starttls()
@@ -35,7 +38,6 @@ def contact():
                 )
             return render_template("contact.html", success=True)
         except Exception as e:
-            # If email sending fails, print the error and show error message
             print(e)
             return render_template("contact.html", error=True)
 
