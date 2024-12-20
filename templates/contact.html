@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex; /* Flexbox for centering */
+            align-items: center;
+            justify-content: center;
+            background-image: url('/static/pexels-jmeyer1220-632280.jpg'); /* Use your correct image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.85); /* White with slight transparency */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for better visibility */
+            width: 100%;
+            max-width: 400px; /* Limits form width */
+        }
+
+        h1 {
+            text-align: center;
+            color: black; /* Black text for readability */
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: black; /* Ensures visibility */
+        }
+
+        input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            font-size: 14px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Makes padding consistent */
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+
+        .error {
+            margin-top: 20px;
+            font-size: 18px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Contact Form</h1>
+        {% if success %}
+            <div class="message">Your Message Submitted</div>
+        {% elif error %}
+            <div class="error">There was an error sending your message. Please try again.</div>
+        {% else %}
+        <form method="POST" action="/">
+            <label for="name">Name and Surname:</label>
+            <input type="text" id="name" name="name" required />
+
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required />
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <input type="submit" value="Submit" />
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
