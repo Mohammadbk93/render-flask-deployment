@@ -6,7 +6,6 @@ The application has been deployed on the **Render cloud platform**, making it pu
 
 ---
 
-## Features
 
 ### Front-End
 - **Responsive Design**: Built using HTML and CSS.
